@@ -1,0 +1,55 @@
+<nav class="blue darken-4">
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">LikeOLX</a>
+        
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {{#if lockNavbar}}
+<li><a href="/auth/login">Sing out</a></li>
+            {{else}}
+
+            <li>
+
+                <form action="/productSearch?token={{token}}&hasToken={{hasToken}}" method="POST">
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li>
+                            <input type="text" name="searchPattern" id="searchInput" placeholder="Search...">
+                        </li>
+                        <li><button onclick="submit">Search</button></li>
+                    </ul>
+                </form>
+
+            </li>
+
+            {{#if isIndex}}
+            {{#if isSearching}}
+            <li class="active"><a href="/?token={{token}}&hasToken={{hasToken}}">Products</a></li>
+            {{else}}
+            <li class="active"><a>Products</a></li>
+            {{/if}}
+
+            {{else}}
+
+            <li><a href="/?token={{token}}&hasToken={{hasToken}}">Products</a></li>
+            {{/if}}
+
+
+            {{#if hasToken}}
+
+            {{#if isCreate}}
+            <li class="active"><a>Create</a></li>
+            {{else}}
+            <li><a href="/create?token={{token}}&hasToken={{hasToken}}">Add product</a></li>
+            {{/if}}
+
+            <li><a href="/myProducts?token={{token}}&hasToken={{hasToken}}">My products</a></li>
+
+            <li><a href="/auth/login">Sing out</a></li>
+            {{else}}
+            <li><a href="/auth/login">Sign in</a></li>
+            <li><a href="/auth/register">Register</a></li>
+
+            {{/if}}
+            {{/if}}
+        </ul>
+    </div>
+</nav>

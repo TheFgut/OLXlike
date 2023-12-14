@@ -1,0 +1,234 @@
+<style>
+    /* Стили для контейнера ряда */
+    .row-container {
+        display: flex; /* Устанавливаем контейнеру ряда свойство flex */
+        justify-content: space-between; /* Распределяем блоки вдоль горизонтальной оси */
+    }
+
+    .column-container {
+        display: flex; /* Используем flex-контейнер */
+        flex-direction: column; /* Распределяем элементы вертикально */
+        justify-content: space-between;
+    }
+
+    /* Стили для блоков внутри ряда */
+    .block {
+        width: 400px; /* Устанавливаем ширину блока */
+        height: 500px; /* Устанавливаем высоту блока */
+        margin: 5px; /* Добавляем небольшие отступы между блоками */
+    }
+
+    .imgBlock {
+        width: 200px; /* Устанавливаем ширину блока */
+        height: 500px; /* Устанавливаем высоту блока */
+        margin: 5px; /* Добавляем небольшие отступы между блоками */
+    }
+
+    .large-input {
+        width: 500px; /* Установите ширину вашего выбора */
+        height: 300px; /* Установите высоту вашего выбора */
+        resize: none;
+    }
+</style>
+
+{{#if isEdit}}
+<div align="center" width="500px">
+    <form action="/edit" method="POST" enctype="multipart/form-data">
+        <h2>Edit Product</h2>
+
+        <input type="hidden" value="{{product._id}}" name="id">
+        <input type="hidden" value="{{token}}" name="token">
+        <input type="hidden" value="{{hasToken}}" name="hasToken">
+
+        <div class="row-container">
+            <div class="imgBlock" name="imageBox">
+                {{> imageUploadForm}}
+                <!-- Container to display the image -->
+                <div id="imageContainer" type="file"></div>
+            </div>
+            <div class="column-container">
+                <h4>Title:</h4>
+                <div class="input-field">
+                    <input type="text" name="title" value="{{product.title}}">
+                </div>
+                <textarea class="medium-input" placeholder="Short description" name="shortDesc">{{product.shortDescription}}</textarea>
+            </div>
+        </div>
+
+        <div class="column-container">
+            <textarea class="large-input" placeholder="Long description" name="longDesc">{{product.description}}</textarea>
+
+            <h5>Price:</h5>
+            <input type="text" id="moneyInput" name="price" pattern="\d+(\.\d{2})?" placeholder="0.00" value={{product.price}}>
+
+            <script>
+                const moneyInput = document.getElementById('moneyInput');
+
+                moneyInput.addEventListener('input', function (event) {
+                    // Remove non-numeric characters except for dots
+                    const sanitizedValue = event.target.value.replace(/[^0-9.]/g, '');
+
+                    // Format the value as a currency
+                    const formattedValue = parseFloat(sanitizedValue).toFixed(2);
+
+                    // Update the input value with the formatted value
+                    event.target.value = formattedValue;
+                });
+            </script>
+
+            <div class="input-field">
+                <h5>Contact data:</h5>
+                <input type="text" name="contact" value={{product.sellerContact}}>
+            </div>
+            <div align="center" width="500px">
+                <button type="submit" class="btn">Update</button>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<div align="center" width="500px">
+    <button onclick="goBack()" class="btn" align="center">Return</button>
+</div>
+
+
+
+{{else}}
+<div align="center" width="500px">
+    <form action="/create" method="POST" enctype="multipart/form-data">
+        <h2>Create Product</h2>
+
+        <input type="hidden" value="{{token}}" name="token">
+        <input type="hidden" value="{{hasToken}}" name="hasToken">
+
+        <div class="row-container">
+            <div class="imgBlock" name="imageBox">
+                {{> imageUploadForm}}
+                <!-- Container to display the image -->
+                <div id="imageContainer" type="file"></div>
+            </div>
+            <div class="column-container">
+                <h4>Title:</h4>
+                <div class="input-field">
+                    <input type="text" name="title">
+                </div>
+                <textarea class="medium-input" placeholder="Short description" name="shortDesc"></textarea>
+            </div>
+        </div>
+
+        <div class="column-container">
+            <textarea class="large-input" placeholder="Long description" name="longDesc"></textarea>
+
+            <h5>Price:</h5>
+            <input type="text" id="moneyInput" name="price" pattern="\d+(\.\d{2})?" placeholder="0.00">
+
+            <script>
+                const moneyInput = document.getElementById('moneyInput');
+
+                moneyInput.addEventListener('input', function (event) {
+                    // Remove non-numeric characters except for dots
+                    const sanitizedValue = event.target.value.replace(/[^0-9.]/g, '');
+
+                    // Format the value as a currency
+                    const formattedValue = parseFloat(sanitizedValue).toFixed(2);
+
+                    // Update the input value with the formatted value
+                    event.target.value = formattedValue;
+                });
+            </script>
+
+            <div class="input-field">
+                <h5>Contact data:</h5>
+                <input type="text" name="contact">
+            </div>
+            <div align="center" width="500px">
+                <button type="submit" class="btn">Create</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+    {{/if}}
+
+
+    <style>
+        .centerAlign {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        h2, h4 {
+            text-align: center;
+            color: #333;
+        }
+
+        .row-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .imgBlock {
+            flex-basis: 40%;
+        }
+
+        .column-container {
+            flex-basis: 50%;
+            margin-left: 20px;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+        }
+
+        .large-input {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .medium-input {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 15px;
+            resize: none;
+        }
+
+        .btn {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background-color: #45a049;
+            }
+    </style>
+
+
+
+    <script>
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>

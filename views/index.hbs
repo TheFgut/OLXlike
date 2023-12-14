@@ -1,0 +1,61 @@
+{{#if isSearching}}
+<h2>Products "{{search}}"</h2>
+{{else}}
+<h2>Products</h2>
+{{/if}}
+
+{{#if products.length}}
+<ul>
+    {{#each products}}
+    <li class="product">
+
+        <label>
+
+            <input type="hidden" value="{{_id}}" name="id">
+
+            <div class="row">
+                <div class="image">><img src="/image/{{_id}}" alt="Image from MongoDB" width="200" style="display: block;"></div>
+                <div>
+                    <ul>
+                        <li><span style="font-size: 30px;">{{title}}</span></li>
+                        <li><span style="font-size: 20px;">{{shortDescription}}</span></li>
+                        <li>
+                            <span style="font-size: 20px;">
+                                <a href="/productDetails?id={{_id}}">Details</a>
+                                <p>Seller:{{sellerDetails.name}}</p>
+
+                            </span>
+                        </li>
+                        <li><span style="font-size: 40px;">Price:{{price}}</span></li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <style>
+
+                .column {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    padding-bottom: 50px;
+                }
+
+                .image {
+                    margin-right: 20px;
+                }
+            </style>
+
+        </label>
+    </li>
+    {{/each}}
+</ul>
+{{else}}
+<p>No products!</p>
+{{/if}}
+

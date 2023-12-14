@@ -1,0 +1,68 @@
+
+<style>
+    /* Стили для контейнера ряда */
+    .row-container {
+        display: flex; /* Устанавливаем контейнеру ряда свойство flex */
+        justify-content: space-between; /* Распределяем блоки вдоль горизонтальной оси */
+    }
+
+    .column-container {
+        display: flex; /* Используем flex-контейнер */
+        flex-direction: column; /* Распределяем элементы вертикально */
+        justify-content: space-between;
+    }
+
+    /* Стили для блоков внутри ряда */
+    .block {
+        width: 400px; /* Устанавливаем ширину блока */
+        height: 500px; /* Устанавливаем высоту блока */
+        margin: 5px; /* Добавляем небольшие отступы между блоками */
+    }
+
+    .imgBlock {
+        width: 200px; /* Устанавливаем ширину блока */
+        height: 500px; /* Устанавливаем высоту блока */
+        margin: 5px; /* Добавляем небольшие отступы между блоками */
+    }
+
+    .row-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 800px;
+    }
+
+    .column-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="column">
+
+    <div class="row-container">
+        <div class="image">><img src="/image/{{product._id}}" alt="Image from MongoDB" width="400" style="display: block;"></div>
+        <p style="font-size: 20px;">{{product.description}}</p>
+    </div>>
+
+    <p style="font-size: 30px;">{{product.title}}</p>
+
+    <div class="column-container">
+        <h4>Price:</h4>
+        <p style="font-size: 20px;">{{product.price}}</p>
+        <h4>Contact details:</h4>
+        <p style="font-size: 20px;">Seller: {{product.sellerName}}</p>
+        <p style="font-size: 20px;">Contact: {{product.sellerContact}}</p>
+        <button onclick="goBack()">Return</button>
+    </div>>
+
+
+</div>
+
+<script>
+
+    function goBack() {
+        window.history.back();
+    }
+</script>

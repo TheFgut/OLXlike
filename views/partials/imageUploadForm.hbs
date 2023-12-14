@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<input type="file" name="imageInput" id="fileInput" accept="image/*" onchange="loadAndDisplayImage()">
+<div class="image">><img src="/image/{{product._id}}" alt="Image from MongoDB" width="400" style="display: block;" id="img"></div>
+
+<script>
+    function loadAndDisplayImage() {
+        var fileInput = document.getElementById('fileInput');
+        var imageContainer = document.getElementById('imageContainer');
+
+        // Проверяем, выбран ли файл
+        if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Создаем элемент изображения
+                var imageElement = document.getElementById('img');
+                imageElement.width = 400;
+                // Устанавливаем путь к изображению
+                imageElement.src = e.target.result;
+                imageElement.alt = 'Выбранное изображение';
+                imageElement.id = "img"
+                // Очищаем контейнер перед добавлением нового изображения
+                imageContainer.innerHTML = '';
+            };
+
+            // Читаем содержимое файла как Data URL
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+</script>

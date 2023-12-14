@@ -1,0 +1,37 @@
+
+
+
+
+
+{{#if isSignin}}
+<form action="/auth/login" method="POST">
+    <div class="container">
+        <h2>User Signup</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+
+        <button type="submit" class="btn">Sign Up</button>
+        <p id="message"></p>
+    </div>
+</form>
+{{else}}
+<form action="/auth/register" method="POST">
+    <div class="container">
+        <h2>User registration</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn">Register</button>
+        <p id="message"></p>
+    </div>
+
+</form>
+{{/if}}
+
